@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MetroTech メトロテック — Recovered Transmissions</title>
+<meta name="description" content="MetroTech is an audio-visual fiction: recovered transmissions from a band that spent the voyage home remembering. Retro-futurist ambient vaporwave from a civilian fortress-city in space.">
+<meta property="og:title" content="MetroTech メトロテック">
+<meta property="og:description" content="Recovered transmissions from a band that spent the voyage home remembering.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --bg-2: #0b0f1a;
+    --panel: #0d1220;
+    --line: #1c2438;
+    --text: #c9d4e3;
+    --text-dim: #6d7a91;
+    --cyan: #5fd4d0;
+    --amber: #e8b45a;
+    --magenta: #c77b9e;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ---- atmosphere layers ---- */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 50;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0px, rgba(0,0,0,0) 3px,
+      rgba(0,0,0,0.10) 3px, rgba(0,0,0,0.10) 4px
+    );
+    opacity: .5;
+  }
+  .vignette {
+    position: fixed; inset: 0; pointer-events: none; z-index: 49;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(2,3,7,0.55) 100%);
+  }
+  .grain {
+    position: fixed; inset: -50%; width: 200%; height: 200%;
+    pointer-events: none; z-index: 48; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 8s steps(10) infinite;
+  }
+  @keyframes grain {
+    0%,100% { transform: translate(0,0); }
+    20% { transform: translate(-2%,2%); }
+    40% { transform: translate(2%,-1%); }
+    60% { transform: translate(-1%,-2%); }
+    80% { transform: translate(1%,2%); }
+  }
+
+  /* ---- layout ---- */
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 96px 0; border-top: 1px solid var(--line); }
+
+  .kicker {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .25em;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 20px;
+  }
+  .kicker::before { content: "▸ "; color: var(--amber); }
+  h2 { font-weight: 500; font-size: 30px; letter-spacing: .02em; margin-bottom: 24px; color: #e6edf6; }
+  p { margin-bottom: 18px; }
+  .dim { color: var(--text-dim); }
+  a { color: var(--cyan); text-decoration: none; border-bottom: 1px solid rgba(95,212,208,.3); }
+  a:hover { border-bottom-color: var(--cyan); }
+
+  /* ---- hero ---- */
+  header {
+    min-height: 92vh; display: flex; flex-direction: column;
+    justify-content: center; position: relative;
+    background:
+      linear-gradient(to bottom, rgba(7,9,15,.2), var(--bg) 90%),
+      radial-gradient(ellipse 80% 55% at 50% 0%, rgba(41,64,110,.35), transparent 70%),
+      radial-gradient(ellipse 40% 35% at 78% 28%, rgba(199,123,158,.10), transparent 70%),
+      radial-gradient(ellipse 45% 30% at 18% 55%, rgba(95,212,208,.07), transparent 70%);
+  }
+  .signal-tag {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
+    color: var(--text-dim); text-transform: uppercase; margin-bottom: 28px;
+  }
+  .signal-tag .live { color: var(--amber); animation: blink 2.4s infinite; }
+  @keyframes blink { 0%,70% { opacity: 1; } 85% { opacity: .25; } 100% { opacity: 1; } }
+  h1 {
+    font-weight: 600; font-size: clamp(48px, 9vw, 92px);
+    letter-spacing: .04em; line-height: 1.05; color: #eef4fb;
+    text-shadow: 0 0 40px rgba(95,212,208,.18);
+  }
+  .jp { display: block; font-weight: 300; font-size: clamp(18px, 3vw, 26px); color: var(--cyan); letter-spacing: .5em; margin-top: 14px; }
+  .oneliner { margin-top: 30px; max-width: 520px; font-size: 18px; color: var(--text-dim); }
+  .hero-cta { margin-top: 44px; }
+  .btn {
+    display: inline-block; font-family: var(--mono); font-size: 13px;
+    letter-spacing: .15em; text-transform: uppercase;
+    border: 1px solid var(--cyan); color: var(--cyan);
+    padding: 13px 28px; border-radius: 2px;
+    background: rgba(95,212,208,.05); transition: background .3s;
+  }
+  .btn:hover { background: rgba(95,212,208,.14); }
+
+  /* ---- transmissions ---- */
+  .player-frame {
+    border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+    background: var(--panel); margin-bottom: 28px;
+    box-shadow: 0 0 60px rgba(41,64,110,.15);
+  }
+  .player-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--text-dim);
+    padding: 10px 14px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+  }
+  .player-label span:last-child { color: var(--amber); }
+  iframe { display: block; border: 0; width: 100%; }
+
+  /* ---- dossiers ---- */
+  .dossier {
+    border: 1px solid var(--line); border-radius: 4px;
+    background: var(--panel); padding: 28px; margin-bottom: 24px;
+  }
+  .dossier-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin-bottom: 10px;
+  }
+  .dossier-head h3 { font-weight: 500; font-size: 21px; color: #e6edf6; letter-spacing: .03em; }
+  .role {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--amber);
+  }
+  .mode-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; padding: 3px 10px;
+    border: 1px solid var(--line); border-radius: 2px; color: var(--text-dim);
+    margin-left: auto;
+  }
+  .dossier p { margin-bottom: 0; color: var(--text-dim); }
+
+  /* ---- follow ---- */
+  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 12px; }
+  .channel {
+    border: 1px solid var(--line); border-radius: 4px; background: var(--panel);
+    padding: 22px; display: block; border-bottom: 1px solid var(--line);
+    transition: border-color .3s, transform .3s;
+  }
+  .channel:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .channel .freq { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: var(--text-dim); text-transform: uppercase; }
+  .channel .name { font-size: 17px; color: #e6edf6; margin-top: 6px; font-weight: 500; }
+  .channel .note { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 48px 0 64px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .15em;
+    color: var(--text-dim); text-transform: uppercase; text-align: center;
+  }
+  footer div { margin-bottom: 8px; }
+
+  @media (max-width: 600px) {
+    section { padding: 64px 0; }
+    .mode-tag { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<header>
+  <div class="wrap">
+    <div class="signal-tag"><span class="live">●</span> signal acquired — dead channel 7 · archive playback</div>
+    <h1>MetroTech<span class="jp">メトロテック</span></h1>
+    <p class="oneliner">Recovered transmissions from a band that spent the voyage home remembering.</p>
+    <div class="hero-cta"><a class="btn" href="#transmissions">Tune In</a></div>
+  </div>
+</header>
+
+<section id="transmissions">
+  <div class="wrap">
+    <div class="kicker">Transmissions</div>
+    <h2>Archive Playback</h2>
+    <p class="dim">Broadcasts recovered from the voyage. Sourced from aging tape, duplicated by hand, transmitted on a channel that was supposed to be dead.</p>
+
+    <div class="player-frame">
+      <div class="player-label"><span>Broadcast feed · all recovered tracks</span><span>SRC: SoundCloud</span></div>
+      <iframe title="MetroTech on SoundCloud" height="450" allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/434672856&color=%235fd4d0&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+    </div>
+
+    <div class="player-frame">
+      <div class="player-label"><span>Visual feed · recovered footage</span><span>SRC: YouTube</span></div>
+      <iframe title="MetroTech on YouTube" height="420" src="https://www.youtube-nocookie.com/embed/videoseries?list=UUOn2l3aA8p4enk5Kqt1bEFw" allowfullscreen></iframe>
+    </div>
+
+    <p class="dim" style="font-family:var(--mono);font-size:12px;letter-spacing:.1em;">
+      ALSO BROADCASTING VIA: <a href="https://soundcloud.com/metrotech-band">SoundCloud</a> · Spotify (transmission pending) · <a href="https://www.youtube.com/@MetroTech-Station">YouTube</a>
+    </p>
+  </div>
+</section>
+
+<section id="story">
+  <div class="wrap">
+    <div class="kicker">The Story</div>
+    <h2>A City That Sings To Itself</h2>
+    <p>MetroTech is an audio-visual fiction about three young women aboard an evacuation city-ship on the long voyage back to Earth — the world they fled as teenagers when the crisis came.</p>
+    <p>Between shifts on the broadcast relays, the rain grid, and the machine decks, they record music on aging analog equipment and transmit it on a dead channel — rebuilding the Earth they remember from tape hiss and teenage memory. Their broadcasts became the heartbeat of a homesick city.</p>
+    <p>The albums are those recovered transmissions.</p>
+    <p class="dim">The ship is called <em>Meridian One</em>. The crisis is not discussed. The voyage is long. The tapes are degrading — and that, too, is part of the record.</p>
+  </div>
+</section>
+
+<section id="ensemble">
+  <div class="wrap">
+    <div class="kicker">Crew Records</div>
+    <h2>The Ensemble</h2>
+
+    <div class="dossier">
+      <div class="dossier-head">
+        <h3>Serin Hoshino</h3>
+        <span class="role">Broadcast Relay Operator</span>
+        <span class="mode-tag">Shift: Night Watch</span>
+      </div>
+      <p>The voice over the PA by day; seconded to comms watch on the command deck at night. Her night shifts among the dead channels are how MetroTech gets on the air. Extroverted, quick under pressure.</p>
+    </div>
+
+    <div class="dossier">
+      <div class="dossier-head">
+        <h3>Dani Okafor</h3>
+        <span class="role">Environmental Systems — Rain Grid</span>
+        <span class="mode-tag">Shift: Artificial Dawn</span>
+      </div>
+      <p>Runs the ship's artificial dawn and rain cycles, and works in the school library while she studies — the band's access to the media archive and its degrading materials from Earth. Grounding; first to show up when something goes wrong.</p>
+    </div>
+
+    <div class="dossier">
+      <div class="dossier-head">
+        <h3>Sable Marsh</h3>
+        <span class="role">Systems &amp; Maintenance Engineer</span>
+        <span class="mode-tag">Shift: Machine Decks</span>
+      </div>
+      <p>Machine rooms, transit decks, reactor levels. She hears the ship as an instrument, and scavenges and repairs the band's aging recording gear. Quiet, observational; keeper of the journal.</p>
+    </div>
+
+    <p class="dim" style="font-family:var(--mono);font-size:12px;letter-spacing:.1em;">VISUAL RECORDS: pending recovery.</p>
+  </div>
+</section>
+
+<section id="follow">
+  <div class="wrap">
+    <div class="kicker">Stay Tuned</div>
+    <h2>Receive the Signal</h2>
+    <div class="channels">
+      <a class="channel" href="https://soundcloud.com/metrotech-band">
+        <div class="freq">CH 01 · Audio</div>
+        <div class="name">SoundCloud</div>
+        <div class="note">Full transmissions, first to receive new broadcasts.</div>
+      </a>
+      <a class="channel" href="#" title="Spotify artist profile pending">
+        <div class="freq">CH 02 · Audio</div>
+        <div class="name">Spotify</div>
+        <div class="note">Transmission pending — link coming soon.</div>
+      </a>
+      <a class="channel" href="https://www.youtube.com/@MetroTech-Station">
+        <div class="freq">CH 03 · Visual</div>
+        <div class="name">YouTube</div>
+        <div class="note">Recovered footage &amp; visualizers.</div>
+      </a>
+      <a class="channel" href="mailto:metrotechband@gmail.com">
+        <div class="freq">CH 04 · Direct</div>
+        <div class="name">Contact</div>
+        <div class="note">metrotechband@gmail.com</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>MetroTech メトロテック · Signal Lounge Ensemble</div>
+  <div>recovered · duplicated by hand · transmitted on a dead channel</div>
+</footer>
+
+</body>
+</html>
