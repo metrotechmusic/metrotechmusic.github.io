@@ -8,6 +8,7 @@
 <meta property="og:title" content="MetroTech メトロテック">
 <meta property="og:description" content="Recovered transmissions from a band that spent the voyage home remembering.">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -89,6 +90,10 @@
       radial-gradient(ellipse 40% 35% at 78% 28%, rgba(199,123,158,.10), transparent 70%),
       radial-gradient(ellipse 45% 30% at 18% 55%, rgba(95,212,208,.07), transparent 70%);
   }
+  .logo-mark {
+    width: 76px; height: auto; margin-bottom: 30px; display: block;
+    filter: drop-shadow(0 0 24px rgba(95,212,208,.25));
+  }
   .signal-tag {
     font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
     color: var(--text-dim); text-transform: uppercase; margin-bottom: 28px;
@@ -147,6 +152,17 @@
     margin-left: auto;
   }
   .dossier p { margin-bottom: 0; color: var(--text-dim); }
+  .with-portrait { display: flex; gap: 26px; align-items: flex-start; }
+  .portrait {
+    width: 148px; height: 148px; object-fit: cover; flex-shrink: 0;
+    border: 1px solid var(--line); border-radius: 4px;
+    filter: saturate(.9) contrast(.98);
+    box-shadow: 0 0 40px rgba(41,64,110,.25);
+  }
+  @media (max-width: 560px) {
+    .with-portrait { flex-direction: column; }
+    .portrait { width: 100%; height: auto; }
+  }
 
   /* ---- follow ---- */
   .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 12px; }
@@ -181,6 +197,7 @@
 
 <header>
   <div class="wrap">
+    <img class="logo-mark" src="images/mt-logo.png" alt="MetroTech logo">
     <div class="signal-tag"><span class="live">●</span> signal acquired — dead channel 7 · archive playback</div>
     <h1>MetroTech<span class="jp">メトロテック</span></h1>
     <p class="oneliner">Recovered transmissions from a band that spent the voyage home remembering.</p>
@@ -236,13 +253,16 @@
       <p>The voice over the PA by day; seconded to comms watch on the command deck at night. Her night shifts among the dead channels are how MetroTech gets on the air. Extroverted, quick under pressure.</p>
     </div>
 
-    <div class="dossier">
-      <div class="dossier-head">
-        <h3>Dani Okafor</h3>
-        <span class="role">Environmental Systems — Rain Grid</span>
-        <span class="mode-tag">Shift: Artificial Dawn</span>
+    <div class="dossier with-portrait">
+      <img class="portrait" src="images/dani-okafor.png" alt="Dani Okafor" onerror="this.style.display='none'">
+      <div class="dossier-body">
+        <div class="dossier-head">
+          <h3>Dani Okafor</h3>
+          <span class="role">Environmental Systems — Rain Grid</span>
+          <span class="mode-tag">Shift: Artificial Dawn</span>
+        </div>
+        <p>Runs the ship's artificial dawn and rain cycles, and works in the school library while she studies — the band's access to the media archive and its degrading materials from Earth. Grounding; first to show up when something goes wrong. She plays keyboards and synthesizers.</p>
       </div>
-      <p>Runs the ship's artificial dawn and rain cycles, and works in the school library while she studies — the band's access to the media archive and its degrading materials from Earth. Grounding; first to show up when something goes wrong.</p>
     </div>
 
     <div class="dossier">
@@ -254,7 +274,7 @@
       <p>Machine rooms, transit decks, reactor levels. She hears the ship as an instrument, and scavenges and repairs the band's aging recording gear. Quiet, observational; keeper of the journal.</p>
     </div>
 
-    <p class="dim" style="font-family:var(--mono);font-size:12px;letter-spacing:.1em;">VISUAL RECORDS: pending recovery.</p>
+    <p class="dim" style="font-family:var(--mono);font-size:12px;letter-spacing:.1em;">VISUAL RECORDS: partially recovered. Further recovery in progress.</p>
   </div>
 </section>
 
